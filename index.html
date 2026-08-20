@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kuldeep Limba — Full Stack Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink: #0D1117;
+    --surface: #161B24;
+    --surface-2: #1E2530;
+    --text: #ECEDF0;
+    --muted: #8A93A6;
+    --amber: #F2B705;
+    --teal: #2DD4BF;
+    --line: #262D3A;
+
+    --font-display: 'Space Grotesk', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+
+    --maxw: 1180px;
+  }
+
+  *{ box-sizing: border-box; margin:0; padding:0; }
+
+  html{ scroll-behavior: smooth; }
+
+  body{
+    background: var(--ink);
+    color: var(--text);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  ::selection{ background: var(--amber); color: var(--ink); }
+
+  a{ color: inherit; text-decoration: none; }
+
+  img, svg { display:block; max-width:100%; }
+
+  .wrap{
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  h1,h2,h3{ font-family: var(--font-display); font-weight: 600; letter-spacing: -0.01em; }
+
+  .eyebrow{
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--teal);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+  .eyebrow::before{
+    content: "";
+    width: 18px; height: 1px;
+    background: var(--teal);
+    display: inline-block;
+  }
+
+  :focus-visible{
+    outline: 2px solid var(--amber);
+    outline-offset: 3px;
+  }
+
+  /* ---------- NAV ---------- */
+  header{
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(13,17,23,0.82);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  nav.wrap{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 68px;
+  }
+  .logo{
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+  .logo span{ color: var(--amber); }
+  .nav-links{
+    display: flex;
+    gap: 36px;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: var(--muted);
+  }
+  .nav-links a{ transition: color .2s ease; position: relative; }
+  .nav-links a:hover{ color: var(--text); }
+  .nav-toggle{ display:none; background:none; border:none; color: var(--text); font-size: 1.4rem; cursor:pointer; }
+
+  @media (max-width: 720px){
+    .nav-links{
+      position: fixed;
+      top: 68px; left: 0; right: 0;
+      background: var(--surface);
+      border-bottom: 1px solid var(--line);
+      flex-direction: column;
+      gap: 0;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .3s ease;
+    }
+    .nav-links.open{ max-height: 260px; }
+    .nav-links a{ padding: 16px 32px; border-bottom: 1px solid var(--line); }
+    .nav-toggle{ display:block; }
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding-top: 68px;
+    position: relative;
+  }
+  .hero-grid{
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 60px;
+    align-items: center;
+    width: 100%;
+    padding: 80px 0;
+  }
+  .hero h1{
+    font-size: clamp(2.4rem, 5vw, 4.2rem);
+    line-height: 1.05;
+    margin-bottom: 20px;
+  }
+  .hero h1 .accent{ color: var(--amber); }
+  .hero p.lede{
+    color: var(--muted);
+    font-size: 1.08rem;
+    max-width: 480px;
+    margin-bottom: 32px;
+  }
+  .hero-cta{ display:flex; gap: 16px; flex-wrap: wrap; }
+
+  .btn{
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    padding: 14px 26px;
+    border-radius: 3px;
+    border: 1px solid var(--line);
+    cursor: pointer;
+    transition: all .2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .btn-primary{ background: var(--amber); color: var(--ink); border-color: var(--amber); font-weight: 500; }
+  .btn-primary:hover{ background: #ffc933; }
+  .btn-ghost{ color: var(--text); }
+  .btn-ghost:hover{ border-color: var(--teal); color: var(--teal); }
+
+  .terminal-line{
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-top: 28px;
+  }
+  .terminal-line .prompt{ color: var(--teal); }
+  .cursor{
+    display:inline-block; width: 8px; height: 15px;
+    background: var(--amber);
+    margin-left: 4px;
+    animation: blink 1s step-end infinite;
+    vertical-align: -2px;
+  }
+  @keyframes blink{ 50%{ opacity:0; } }
+
+  /* ---------- STACK VISUAL (signature element) ---------- */
+  .stack-visual{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .stack-layer{
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--teal);
+    padding: 18px 20px;
+    border-radius: 4px;
+    opacity: 0;
+    transform: translateX(24px);
+    animation: layerIn .6s ease forwards;
+    cursor: default;
+    transition: border-color .25s ease, background .25s ease, transform .25s ease;
+  }
+  .stack-layer:hover{
+    border-left-color: var(--amber);
+    background: var(--surface-2);
+    transform: translateX(-4px);
+  }
+  .stack-layer:nth-child(1){ animation-delay: .15s; }
+  .stack-layer:nth-child(2){ animation-delay: .3s; }
+  .stack-layer:nth-child(3){ animation-delay: .45s; }
+  .stack-layer:nth-child(4){ animation-delay: .6s; }
+  .stack-layer:nth-child(5){ animation-delay: .75s; }
+  @keyframes layerIn{ to{ opacity:1; transform: translateX(0); } }
+
+  .stack-layer .row{ display:flex; justify-content: space-between; align-items:baseline; }
+  .stack-layer .name{ font-family: var(--font-display); font-size: 1.02rem; font-weight: 600; }
+  .stack-layer .tag{ font-family: var(--font-mono); font-size: 0.7rem; color: var(--muted); }
+  .stack-layer .tech{
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--teal);
+    margin-top: 6px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .stack-layer{ animation: none; opacity:1; transform:none; }
+    .cursor{ animation: none; }
+  }
+
+  @media (max-width: 900px){
+    .hero-grid{ grid-template-columns: 1fr; padding: 60px 0 40px; }
+  }
+
+  /* ---------- SECTION SHELL ---------- */
+  section{ padding: 120px 0; border-top: 1px solid var(--line); }
+  .section-head{ margin-bottom: 56px; max-width: 640px; }
+  .section-head h2{ font-size: clamp(1.8rem, 3vw, 2.6rem); }
+  .section-head p{ color: var(--muted); margin-top: 14px; font-size: 1.02rem; }
+
+  /* ---------- ABOUT ---------- */
+  .about-content{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+  }
+  .about-content p{ color: var(--muted); margin-bottom: 18px; font-size: 1.02rem; }
+  .about-content strong{ color: var(--text); font-weight: 600; }
+  .now-block{
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 28px;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    align-self: start;
+  }
+  .now-block .k{ color: var(--teal); }
+  .now-block .l{ margin-bottom: 10px; color: var(--muted); }
+  .now-block .l:last-child{ margin-bottom: 0; }
+  .now-block .l .v{ color: var(--text); }
+
+  @media (max-width: 780px){ .about-content{ grid-template-columns: 1fr; } }
+
+  /* ---------- STACK / SKILLS SECTION ---------- */
+  .stack-detail{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 18px;
+  }
+  .stack-card{
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 26px;
+    transition: border-color .2s ease, transform .2s ease;
+  }
+  .stack-card:hover{ border-color: var(--amber); transform: translateY(-3px); }
+  .stack-card .icon-label{
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--amber);
+    letter-spacing: 0.06em;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+  .stack-card h3{ font-size: 1.15rem; margin-bottom: 14px; }
+  .pill-row{ display: flex; flex-wrap: wrap; gap: 8px; }
+  .pill{
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    padding: 5px 11px;
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    color: var(--muted);
+  }
+
+  /* ---------- PROJECTS ---------- */
+  .projects-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 24px;
+  }
+  .project-card{
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform .25s ease, border-color .25s ease;
+  }
+  .project-card:hover{ transform: translateY(-4px); border-color: var(--teal); }
+  .project-thumb{
+    height: 160px;
+    background: linear-gradient(135deg, var(--surface-2), var(--ink));
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    color: var(--line);
+    font-size: 2.4rem;
+    letter-spacing: 0.1em;
+    border-bottom: 1px solid var(--line);
+  }
+  .project-body{ padding: 24px; display:flex; flex-direction: column; gap: 12px; flex:1; }
+  .project-body h3{ font-size: 1.2rem; }
+  .project-body p{ color: var(--muted); font-size: 0.94rem; flex: 1; }
+  .project-links{ display:flex; gap: 18px; font-family: var(--font-mono); font-size: 0.78rem; margin-top: 6px; }
+  .project-links a{ color: var(--teal); border-bottom: 1px solid transparent; transition: border-color .2s ease; }
+  .project-links a:hover{ border-color: var(--teal); }
+
+  /* ---------- CONTACT ---------- */
+  .contact-grid{
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: 60px;
+  }
+  .contact-info p{ color: var(--muted); margin-bottom: 28px; }
+  .contact-list{ display:flex; flex-direction: column; gap: 16px; }
+  .contact-list a{
+    font-family: var(--font-mono);
+    font-size: 0.92rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text);
+    transition: color .2s ease;
+    width: fit-content;
+  }
+  .contact-list a:hover{ color: var(--amber); }
+  .contact-list .dot{ width: 6px; height: 6px; border-radius: 50%; background: var(--teal); }
+
+  form{ display: flex; flex-direction: column; gap: 20px; }
+  .field{ display: flex; flex-direction: column; gap: 8px; }
+  .field label{
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .field input, .field textarea{
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 14px 16px;
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    resize: vertical;
+    transition: border-color .2s ease;
+  }
+  .field input:focus, .field textarea:focus{ border-color: var(--teal); outline: none; }
+  .field .err{ font-family: var(--font-mono); font-size: 0.72rem; color: #FF6B6B; min-height: 14px; }
+  form .btn-primary{ align-self: flex-start; }
+
+  .form-success{
+    display: none;
+    background: var(--surface);
+    border: 1px solid var(--teal);
+    border-radius: 6px;
+    padding: 24px;
+    font-family: var(--font-mono);
+    font-size: 0.88rem;
+  }
+  .form-success .k{ color: var(--teal); }
+
+  @media (max-width: 780px){ .contact-grid{ grid-template-columns: 1fr; } }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    border-top: 1px solid var(--line);
+    padding: 36px 0;
+  }
+  footer .wrap{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+  footer .socials{ display: flex; gap: 20px; }
+  footer .socials a:hover{ color: var(--amber); }
+
+  @media (max-width: 500px){
+    .wrap{ padding: 0 20px; }
+    section{ padding: 80px 0; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <div class="logo">KULDEEP<span>.</span>LIMBA</div>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
+    <div class="nav-links" id="navLinks">
+      <a href="#about">About</a>
+      <a href="#stack">Stack</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero" style="border-top:none; padding:0;">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="eyebrow">Full Stack Developer</div>
+        <h1>Kuldeep Limba builds<br>products <span class="accent">end to end.</span></h1>
+        <p class="lede">From database schema to pixel-perfect UI — I design, build, and ship complete web applications, owning every layer of the stack along the way.</p>
+        <div class="hero-cta">
+          <a href="#projects" class="btn btn-primary">View Projects</a>
+          <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+        </div>
+        <div class="terminal-line"><span class="prompt">$</span> status --current <span class="cursor"></span></div>
+      </div>
+
+      <div class="stack-visual" aria-label="Technology stack layers">
+        <div class="stack-layer">
+          <div class="row"><span class="name">UI Layer</span><span class="tag">CLIENT</span></div>
+          <div class="tech">React · TypeScript · Tailwind</div>
+        </div>
+        <div class="stack-layer">
+          <div class="row"><span class="name">Logic Layer</span><span class="tag">STATE</span></div>
+          <div class="tech">Redux · React Query · Zustand</div>
+        </div>
+        <div class="stack-layer">
+          <div class="row"><span class="name">API Layer</span><span class="tag">SERVER</span></div>
+          <div class="tech">Node.js · Express · GraphQL</div>
+        </div>
+        <div class="stack-layer">
+          <div class="row"><span class="name">Data Layer</span><span class="tag">STORAGE</span></div>
+          <div class="tech">PostgreSQL · MongoDB · Redis</div>
+        </div>
+        <div class="stack-layer">
+          <div class="row"><span class="name">Infra Layer</span><span class="tag">DEPLOY</span></div>
+          <div class="tech">Docker · AWS · CI/CD</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">About</div>
+        <h2>Comfortable at every layer</h2>
+      </div>
+      <div class="about-content">
+        <div>
+          <p>I'm <strong>Kuldeep Limba</strong>, a full stack developer who enjoys the whole journey of building software — from sketching a data model to shipping a polished interface users actually enjoy.</p>
+          <p>I care about clean architecture, readable code, and building things that hold up under real traffic and real edge cases — not just demos. Whether it's a REST API, a React front end, or the pipeline that deploys both, I like owning the full picture.</p>
+          <p>Outside of client work, I'm usually deep in a side project, reading up on system design, or refining a small tool that makes my own workflow faster.</p>
+        </div>
+        <div class="now-block">
+          <div class="l"><span class="k">const</span> <span class="v">dev</span> = {</div>
+          <div class="l" style="padding-left:16px">role: <span class="v">"Full Stack Developer"</span>,</div>
+          <div class="l" style="padding-left:16px">focus: <span class="v">"web apps, APIs"</span>,</div>
+          <div class="l" style="padding-left:16px">currently: <span class="v">"open to work"</span>,</div>
+          <div class="l" style="padding-left:16px">location: <span class="v">"India"</span></div>
+          <div class="l">}</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STACK / SKILLS -->
+  <section id="stack">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">Stack</div>
+        <h2>Tools I build with</h2>
+        <p>A working toolkit across every layer — from interface to infrastructure.</p>
+      </div>
+      <div class="stack-detail">
+        <div class="stack-card">
+          <div class="icon-label">Frontend</div>
+          <h3>Interface</h3>
+          <div class="pill-row">
+            <span class="pill">React</span><span class="pill">Next.js</span><span class="pill">TypeScript</span><span class="pill">Tailwind CSS</span>
+          </div>
+        </div>
+        <div class="stack-card">
+          <div class="icon-label">Backend</div>
+          <h3>Server & APIs</h3>
+          <div class="pill-row">
+            <span class="pill">Node.js</span><span class="pill">Express</span><span class="pill">REST</span><span class="pill">GraphQL</span>
+          </div>
+        </div>
+        <div class="stack-card">
+          <div class="icon-label">Database</div>
+          <h3>Data</h3>
+          <div class="pill-row">
+            <span class="pill">PostgreSQL</span><span class="pill">MongoDB</span><span class="pill">Redis</span>
+          </div>
+        </div>
+        <div class="stack-card">
+          <div class="icon-label">DevOps</div>
+          <h3>Infrastructure</h3>
+          <div class="pill-row">
+            <span class="pill">Docker</span><span class="pill">AWS</span><span class="pill">GitHub Actions</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">Projects</div>
+        <h2>Selected work</h2>
+        <p>A few projects that show how I approach building full stack applications. Replace these with your own case studies.</p>
+      </div>
+      <div class="projects-grid">
+
+        <div class="project-card">
+          <div class="project-thumb">01</div>
+          <div class="project-body">
+            <h3>TaskFlow</h3>
+            <p>A collaborative task management app with real-time updates, drag-and-drop boards, and role-based permissions.</p>
+            <div class="pill-row">
+              <span class="pill">React</span><span class="pill">Node.js</span><span class="pill">PostgreSQL</span>
+            </div>
+            <div class="project-links">
+              <a href="#">Live Demo →</a>
+              <a href="#">Source Code →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-thumb">02</div>
+          <div class="project-body">
+            <h3>ShopStack</h3>
+            <p>A full e-commerce platform with cart, checkout, and an admin dashboard for managing inventory and orders.</p>
+            <div class="pill-row">
+              <span class="pill">Next.js</span><span class="pill">Express</span><span class="pill">MongoDB</span>
+            </div>
+            <div class="project-links">
+              <a href="#">Live Demo →</a>
+              <a href="#">Source Code →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-thumb">03</div>
+          <div class="project-body">
+            <h3>DevMetrics</h3>
+            <p>An analytics dashboard that visualizes API usage and performance data pulled from a Node.js backend in real time.</p>
+            <div class="pill-row">
+              <span class="pill">React</span><span class="pill">GraphQL</span><span class="pill">Redis</span>
+            </div>
+            <div class="project-links">
+              <a href="#">Live Demo →</a>
+              <a href="#">Source Code →</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">Contact</div>
+        <h2>Let's build something</h2>
+        <p>Have a project in mind or just want to say hello? Send a message below.</p>
+      </div>
+
+      <div class="contact-grid">
+        <div class="contact-info">
+          <p>I'm currently open to freelance work and full-time opportunities. I usually reply within a day or two.</p>
+          <div class="contact-list">
+            <a href="mailto:kuldeep.limba@example.com"><span class="dot"></span>kuldeep.limba@example.com</a>
+            <a href="#"><span class="dot"></span>github.com/kuldeeplimba</a>
+            <a href="#"><span class="dot"></span>linkedin.com/in/kuldeeplimba</a>
+            <a href="#"><span class="dot"></span>twitter.com/kuldeeplimba</a>
+          </div>
+        </div>
+
+        <div>
+          <form id="contactForm" novalidate>
+            <div class="field">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" placeholder="Your name">
+              <div class="err" id="nameErr"></div>
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="you@example.com">
+              <div class="err" id="emailErr"></div>
+            </div>
+            <div class="field">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" rows="5" placeholder="Tell me about your project..."></textarea>
+              <div class="err" id="messageErr"></div>
+            </div>
+            <button type="submit" class="btn btn-primary">Send Message</button>
+          </form>
+
+          <div class="form-success" id="formSuccess">
+            <span class="k">✓ message queued.</span> Thanks for reaching out — I'll get back to you shortly.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>© <span id="year"></span> Kuldeep Limba. Built with HTML, CSS & JS.</div>
+    <div class="socials">
+      <a href="#">GitHub</a>
+      <a href="#">LinkedIn</a>
+      <a href="#">Twitter</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Mobile nav toggle
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', () => {
+    const isOpen = navLinks.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', isOpen);
+  });
+  navLinks.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // Contact form validation (front-end only — see note below)
+  const form = document.getElementById('contactForm');
+  const success = document.getElementById('formSuccess');
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    let valid = true;
+
+    const name = document.getElementById('name');
+    const email = document.getElementById('email');
+    const message = document.getElementById('message');
+    const nameErr = document.getElementById('nameErr');
+    const emailErr = document.getElementById('emailErr');
+    const messageErr = document.getElementById('messageErr');
+
+    nameErr.textContent = '';
+    emailErr.textContent = '';
+    messageErr.textContent = '';
+
+    if(!name.value.trim()){
+      nameErr.textContent = 'Please enter your name.';
+      valid = false;
+    }
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if(!email.value.trim() || !emailPattern.test(email.value.trim())){
+      emailErr.textContent = 'Please enter a valid email.';
+      valid = false;
+    }
+    if(!message.value.trim() || message.value.trim().length < 10){
+      messageErr.textContent = 'Message should be at least 10 characters.';
+      valid = false;
+    }
+
+    if(!valid) return;
+
+    // Front-end only simulation — wire this up to a real backend or
+    // a service like Formspree / EmailJS to actually receive messages.
+    form.style.display = 'none';
+    success.style.display = 'block';
+  });
+</script>
+
+</body>
+</html>
