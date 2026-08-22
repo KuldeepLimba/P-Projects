@@ -1,0 +1,72 @@
+html, body {
+  margin: 0;
+  height: 100%;        
+}
+
+body{
+     display: flex;
+    justify-content: center; 
+    align-items: center;
+    text-align: center;
+    background-color: rgb(33, 33, 90);
+    place-items: center;
+}
+
+.div-one{
+    background-color: rgb(21, 21, 52);
+    color: white;
+    border: 1px solid #fff;
+    box-shadow: 12px black;
+    width: 400px;
+    height: 400px;
+    z-index: 500;
+}
+
+.div-one button{
+    background-color: transparent;
+    color: white;
+    border: 0.01rem solid darkblue;
+}
+
+.div-one:hover{
+    box-shadow: 50px white;
+}
+
+.div-one input{
+    background-color: transparent;
+    color: aliceblue;
+    margin: 10px;
+    height: 1.5rem;
+    width: 15rem;
+    border: 0.03rem solid black;
+}
+
+.div2 ul{
+    justify-content: space-between;
+    padding: 0px 0px;
+    margin: 20px;
+}
+
+.div2{
+    background-color: transparent;
+    justify-content: flex-start;
+    margin: 0px 30px;
+}
+
+.div2 li{
+    background-color: rgb(26, 26, 61);
+    list-style: none;
+    color: white;
+    margin: 5px;
+    padding: 5px 5px;
+}
+
+
+.div2 li button{
+    padding-left: 5rem;
+    background-color: transparent;
+    color: whitesmoke;
+    border: none;
+    align-items: end;
+    justify-content: flex-end;
+}
