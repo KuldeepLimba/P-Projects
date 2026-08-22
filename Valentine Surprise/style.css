@@ -1,0 +1,97 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins', sans-serif;
+}
+
+body{
+    height:100vh;
+    overflow:hidden;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background: linear-gradient(135deg,#ff4e50,#fc913a,#f9d423);
+    background-size:400% 400%;
+    animation: gradientBG 10s ease infinite;
+    color:white;
+    text-align:center;
+}
+
+@keyframes gradientBG{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+
+.container{
+    position:relative;
+    z-index:2;
+}
+
+h1{
+    font-size:3rem;
+    font-weight:800;
+    text-shadow:0 0 20px rgba(255,255,255,0.7);
+}
+
+h2{
+    margin-top:20px;
+    font-size:2rem;
+    font-weight:600;
+    min-height:50px;
+}
+
+button{
+    margin-top:30px;
+    padding:15px 40px;
+    font-size:18px;
+    border:none;
+    border-radius:30px;
+    background:white;
+    color:#ff4e50;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s;
+    box-shadow:0 10px 30px rgba(0,0,0,0.3);
+}
+
+button:hover{
+    transform:scale(1.1);
+    background:#ffe6ea;
+}
+
+/* Floating Roses */
+.rose{
+    position:absolute;
+    font-size:30px;
+    animation: float 8s linear infinite;
+    opacity:0.8;
+}
+
+@keyframes float{
+    0%{
+        transform:translateY(100vh) rotate(0deg);
+        opacity:0;
+    }
+    50%{
+        opacity:1;
+    }
+    100%{
+        transform:translateY(-10vh) rotate(360deg);
+        opacity:0;
+    }
+}
+
+/* Heart animation */
+.heart{
+    position:absolute;
+    color:red;
+    font-size:40px;
+    animation: pop 1s ease forwards;
+}
+
+@keyframes pop{
+    0%{transform:scale(0);}
+    100%{transform:scale(1.5); opacity:0;}
+}
